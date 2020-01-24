@@ -6,7 +6,7 @@ pipeline {
 stages {     
  stage('Preparation') { 
      steps {
-      git https//github.com/raaghavendra09/game-of-life.git
+      git 'https//github.com/raaghavendra09/game-of-life.git'
      }
    }
 
