@@ -1,26 +1,12 @@
 pipeline {
     agent any 
     tools { 
-        maven 'Maven-3' 
-      
+        maven 'Maven-3'
     }
-stages { 
-     
+stages {     
  stage('Preparation') { 
      steps {
-// for display purposes
-
-      // Get some code from a GitHub repository
-
-   //  https://github.com/raaghavendra09/game-of-life.git
-     
      https://github.com/raaghavendra09/game-of-life.git
-     
-      // Get the Maven tool.
-     
- // ** NOTE: This 'M3' Maven tool must be configured
- 
-     // **       in the global configuration.   
      }
    }
 
