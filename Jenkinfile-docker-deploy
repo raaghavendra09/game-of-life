@@ -1,12 +1,12 @@
 pipeline {
     agent any 
     tools { 
-        maven 'Maven-3'
+        maven 'Maven'
     }
 stages {     
  stage('Preparation') { 
      steps {
-     https://github.com/raaghavendra09/game-of-life.git
+      git https://github.com/raaghavendra09/game-of-life.git
      }
    }
 
