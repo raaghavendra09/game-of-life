@@ -1,4 +1,10 @@
-pipeline {
+pipeline 
+{
+    environment{
+    registry = "raaghavendra09/gameoflife-image"
+    registryCredential = 'dockerhub'
+    }
+    
     agent any 
     tools { 
         maven 'Maven'
@@ -37,7 +43,7 @@ stages {
         withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
         }
-        timeout(time: 10, unit: 'MINUTES') {
+        timeout(time: 12, unit: 'MINUTES') {
             waitForQualityGate abortPipeline: true
         }
     }
@@ -54,6 +60,18 @@ stages {
                                  docker push docker.io/raaghavendra09/gameoflife-image:$BUILD_NUMBER'''
       }
  }
+   stage('Update Image Version') {
+         steps {
+            sh label: '', script: '''sed -i s/latest/$BUILD_NUMBER/ deploy-kube.yml'''
+         }
+}
+   stage('Apply Kubernetes files'){
+        steps {
+         sh label: '', script: '''scp *.yml jenkins@15.206.114.5:/home/jenkins
+                               ssh jenkins@15.206.114.5 kubectl apply -f deploy-kube.yml
+                               ssh jenkins@15.206.114.5 kubectl apply -f service.yml'''
+         }
+   }
 }
 post {
         success {
