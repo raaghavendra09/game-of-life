@@ -55,7 +55,7 @@ stages {
  }
      stage('Deploy War') {
        steps {
-          sh label: '', script: 'ansible-playbook deploy.yml'
+          // sh label: '', script: 'ansible-playbook deploy.yml'
          deploy adapters: [tomcat8(credentialsId: 'd596b3a4-e0c4-4439-b0f4-5e1ccc007ba0', path: '', url: 'http://3.6.172.191:8080/manager/html')], contextPath: '/var/lib/jenkins/workspace/cicd/gameoflife-web/target', war: 'WAR'
       }
  }
