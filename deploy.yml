@@ -10,7 +10,7 @@
       state: absent    
   - name: Deploy War File
     get_url:
-       url: http://13.234.109.238/:8081//com/wakaleo/gameoflife/gameoflife1/15/gameoflife1-15.war
+       url: http://13.234.109.238/:8081/nexus/com/wakaleo/gameoflife/gameoflife1/15/gameoflife1-15.war
        dest: /root/apache-tomcat-8.5.50/webapps/gameoflife.war
   - name: Start Tomcat
     shell: /etc/init.d/tomcatstart
