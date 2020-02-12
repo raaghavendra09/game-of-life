@@ -56,7 +56,7 @@ stages {
      stage('Deploy War') {
        steps {
           sh label: '', script: 'ansible-playbook deploy.yml'
-         deploy adapters: [tomcat8(credentialsId: '71ef3adb-3efc-4c51-8cc3-66ecca6e702a', path: '', url: 'http://3.6.172.191:8080/manager/html')], contextPath: 'gameoflife', war: '**/*.war'
+         deploy adapters: [tomcat8(credentialsId: 'd596b3a4-e0c4-4439-b0f4-5e1ccc007ba0', path: '', url: 'http://3.6.172.191:8080/manager/html')], contextPath: '/var/lib/jenkins/workspace/cicd/gameoflife-web/target', war: 'WAR'
       }
  }
     stage('Build and Push Docker Image') {
