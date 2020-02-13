@@ -69,8 +69,8 @@ stages {
                                 // docker push docker.io/raaghavendra09/gameoflife-image:$BUILD_NUMBER'''
       }
  }
- stage('push docker image){
-       steps{
+ stage('push docker image) {
+       steps {
          withCredentials([string(credentialsId: 'docker-hub', variable: 'docker-hub')]) {
            sh "docker login -u raaghavendra09 -p ${docker-hub}"
           sh 'docker push docker.io/raaghavendra09/gameoflife-image:$BUILD_NUMBER'
