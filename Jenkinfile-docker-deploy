@@ -61,7 +61,6 @@ stages {
  }
     
     
-    }
     stage('Build and Push Docker Image') {
       steps {
         sh label: '', script: '''docker build -t gameoflife-image:$BUILD_NUMBER .
