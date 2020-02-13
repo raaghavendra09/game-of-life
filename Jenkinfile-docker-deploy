@@ -76,6 +76,7 @@ stages {
           sh 'docker push docker.io/raaghavendra09/gameoflife-image:$BUILD_NUMBER'
            }
        }
+     }  
    stage('Update Image Version') {
          steps {
             sh label: '', script: '''sed -i s/latest/$BUILD_NUMBER/ deploy-kube.yml'''
