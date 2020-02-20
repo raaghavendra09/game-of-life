@@ -1,8 +1,12 @@
 pipeline 
 {
-    environment{
-    registry = "raaghavendra09/gameoflife-image"
-    registryCredential = 'dockerhub'
+  //  environment{
+  //  registry = "raaghavendra09/gameoflife-image"
+  //  registryCredential = 'dockerhub'
+  //  }
+  
+   environment{
+        DOCKER_TAG = getDockerTag()
     }
     
     agent any 
@@ -61,13 +65,28 @@ stages {
  }
     
     
-    stage('Build and Push Docker Image') {
-      steps {
-        sh label: '', script: '''docker build -t gameoflife-image:$BUILD_NUMBER .
-                                 docker tag gameoflife-image:$BUILD_NUMBER docker.io/raaghavendra09/gameoflife-image:$BUILD_NUMBER
-                                 docker push docker.io/raaghavendra09/gameoflife-image:$BUILD_NUMBER'''
-      }
- }
+    //stage('Build and Push Docker Image') {
+     // steps {
+      //  sh label: '', script: '''docker build -t gameoflife-image:$BUILD_NUMBER .
+      //                           docker tag gameoflife-image:$BUILD_NUMBER docker.io/raaghavendra09/gameoflife-image:$BUILD_NUMBER
+      //                           docker push docker.io/raaghavendra09/gameoflife-image:$BUILD_NUMBER'''
+     // }
+// }
+
+stage('Build Docker Image'){
+            steps{
+                sh "docker build . -t raaghavendra09/gameoflife:${DOCKER_TAG}"
+            }
+        }
+        stage('DockerHub Push'){
+            steps{
+         withCredentials([string(credentialsId: 'passwd', variable: 'passwd')]) {
+
+                   sh "docker login -u raaghavendra09 -p ${passwd}"
+                    sh "docker push raaghavendra09/gameoflife:${DOCKER_TAG}"
+                } 
+            }
+        }
 
    stage('Update Image Version') {
          steps {
