@@ -101,6 +101,12 @@ stage('Build Docker Image'){
          }
    }
 }
+
+def getDockerTag(){
+    def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
+    return tag
+}
+
 post {
         success {
             archiveArtifacts 'gameoflife-web/target/*.war'
