@@ -1,13 +1,13 @@
 pipeline 
 {
-  //  environment{
-  //  registry = "raaghavendra09/gameoflife-image"
-  //  registryCredential = 'dockerhub'
-  //  }
+    environment{
+    registry = "raaghavendra09/gameoflife-image"
+     registryCredential = 'dockerhub'
+   }
   
-   environment{
-        DOCKER_TAG = getDockerTag()
-    }
+ //  environment{
+  //      DOCKER_TAG = getDockerTag()
+  //  }
     
     agent any 
     tools { 
@@ -47,9 +47,9 @@ stages {
         withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
         }
-        timeout(time: 12, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: true
-        }
+        // timeout(time: 12, unit: 'MINUTES') {
+         //   waitForQualityGate abortPipeline: true
+       // }
     }
 }
      stage('Artifact upload') {
@@ -78,7 +78,9 @@ stages {
 
 stage('Build Docker Image'){
             steps{
-                sh "docker build . -t raaghavendra09/gameoflife:${DOCKER_TAG}"
+               // sh "docker build . -t raaghavendra09/gameoflife:${DOCKER_TAG}"
+               sh "docker build . -t raaghavendra09/gameoflife:$BUILD_NUMBER"
+               
             }
         }
         stage('DockerHub Push'){
@@ -86,7 +88,7 @@ stage('Build Docker Image'){
          withCredentials([string(credentialsId: 'passwd', variable: 'passwd')]) {
 
                    sh "docker login -u raaghavendra09 -p ${passwd}"
-                    sh "docker push raaghavendra09/gameoflife:${DOCKER_TAG}"
+                    sh "docker push raaghavendra09/gameoflife:${BUILD_NUMBER}"
                 } 
             }
         }
@@ -117,8 +119,8 @@ post {
     }       
 }
 
-def getDockerTag(){
-    def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
-    return tag
-}
+// def getDockerTag(){
+ //   def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
+ //   return tag
+// }
 
