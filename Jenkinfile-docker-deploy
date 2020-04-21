@@ -60,9 +60,9 @@ stages {
      stage('Deploy War') {
        steps {
           
-        // deploy adapters: [tomcat8(credentialsId: 'd596b3a4-e0c4-4439-b0f4-5e1ccc007ba0', path: '', url: 'http://3.6.172.191:8080/manager/html')], contextPath: 'gameoflife', war: '**/*.war'
+          deploy adapters: [tomcat8(credentialsId: 'd596b3a4-e0c4-4439-b0f4-5e1ccc007ba0', path: '', url: 'http://3.6.172.191:8080/manager/html')], contextPath: 'gameoflife-raghava', war: '**/*.war'
         
-        deploy adapters: [tomcat8(credentialsId: 'd596b3a4-e0c4-4439-b0f4-5e1ccc007ba0', path: '', url: 'http://15.206.104.102:8080/')], contextPath: 'GOL-1', war: '**/*.war'
+       // deploy adapters: [tomcat8(credentialsId: 'd596b3a4-e0c4-4439-b0f4-5e1ccc007ba0', path: '', url: 'http://15.206.104.102:8080/')], contextPath: 'GOL-1', war: '**/*.war'
         
       }
  }
