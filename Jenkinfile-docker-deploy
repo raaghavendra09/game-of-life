@@ -110,6 +110,15 @@ stage('Build Docker Image'){
                                ssh jenkins@15.206.114.5 kubectl apply -f service.yml'''
          }
    }
+   
+   /* stage('Deploy to Kubernetes') {
+         steps {
+         withKubeConfig([credentialsId: 'jenkins-kube']) {
+         sh 'kubectl config set-context $(kubectl config current-context) --namespace=default'
+         sh 'kubectl apply -f GOL-Deploy.yml'
+        }
+        }
+     }*/
 }
 
 
