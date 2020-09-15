@@ -67,6 +67,11 @@ stages {
       }
  }
     
+ /*    stage('Deploy War') {
+      steps {
+        sh label: '', script: 'ansible-playbook deploy.yml'
+      }
+ }*/
     
     //stage('Build and Push Docker Image') {
      // steps {
